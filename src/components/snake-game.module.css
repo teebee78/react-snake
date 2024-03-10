@@ -1,0 +1,34 @@
+.map {
+  border: 1px solid whitesmoke;
+  border-radius: 5px;
+  border-spacing: 0;
+}
+
+.map td {
+  border: 0;
+}
+
+.map tbody tr td div {
+  width: 10px;
+  aspect-ratio: 1;
+}
+
+.water {
+  background-color: blue;
+/*  filter: drop-shadow(0em 0em 1em blue); */
+}
+
+.wall {
+  background-color: beige;
+/*  filter: drop-shadow(0em 0em 0.5em beige);*/
+}
+
+.snake {
+  background-color: green;
+/*  filter: drop-shadow(0em 0.5em 1em green);*/
+}
+
+.berry {
+  background-color: crimson;
+  border-radius: 50%;
+}
