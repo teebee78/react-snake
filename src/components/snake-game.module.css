@@ -32,3 +32,11 @@
   background-color: crimson;
   border-radius: 50%;
 }
+
+.footer {
+  margin: 25px;
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  justify-content: center;
+}

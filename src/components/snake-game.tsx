@@ -3,6 +3,7 @@ import { Field, Level, MovingDirection, Position, Snake } from "../model";
 import Modal from "./modal";
 import styles from "./snake-game.module.css";
 import { tick } from "../snake-game";
+import Compass from "./compass";
 
 export default function SnakeGame({ level }: { level: Level }) {
   const [{ snake, food, status }, setState] = useState<{
@@ -49,7 +50,7 @@ export default function SnakeGame({ level }: { level: Level }) {
 
   const handleTick = useCallback(
     function handleTick(): void {
-      setState(currentState => {
+      setState((currentState) => {
         if (!movingDirectionRef.current) {
           throw new Error("Moving Direction must be defined on a tick");
         }
@@ -112,10 +113,21 @@ export default function SnakeGame({ level }: { level: Level }) {
           })}
         </tbody>
       </table>
-      {movingDirectionRef.current}-{tickCountRef.current}-{snake.length}
-      {movingDirectionRef.current && (
-        <button onClick={handleTick}>Tick!</button>
-      )}
+      <div className={styles.footer}>
+        {movingDirectionRef.current && (
+          <Compass
+            direction={movingDirectionRef.current}
+          />
+        )}
+
+        <div>
+          {tickCountRef.current}-{snake.length}
+        </div>
+
+        {movingDirectionRef.current && (
+          <button onClick={handleTick}>Tick!</button>
+        )}
+      </div>
     </>
   );
 }

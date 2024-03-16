@@ -1,0 +1,54 @@
+.compass {
+  display: grid;
+  grid-template:
+    "a north b" auto
+    "west  arrow east" auto
+    "c south d" auto / auto auto auto;
+
+  border-radius: 50%;
+  border: 1px solid aliceblue; 
+  text-align: center;
+  width: 75px;
+  height: 75px;
+  color: gray;
+
+  .north {
+    grid-area: north;
+  }
+
+  .south {
+    grid-area: south;
+  }
+
+  .east {
+    grid-area: east;
+  }
+
+  .west {
+    grid-area: west;
+  }
+
+  .arrow {
+    grid-area: arrow;
+    text-align: center;
+    transition: transform 500ms ease;
+    font-weight: bolder;
+    color: white;
+
+    &.arrow_north {
+      transform: rotate(0);
+    }
+
+    &.arrow_west {
+      transform: rotate(270deg);
+    }
+
+    &.arrow_east {
+      transform: rotate(90deg);
+    }
+
+    &.arrow_south {
+      transform: rotate(180deg);
+    }
+  }
+}
