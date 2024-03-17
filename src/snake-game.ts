@@ -1,13 +1,13 @@
-import { Snake, Field, MovingDirection, Position } from "./model";
+import { Snake, Field, MovingDirection, Position, Level } from "./model";
 
 export type GameState = {
   snake: Snake;
   food: Position[];
-  status: "INITIAL" | "ON" | "OVER";
+  status: "INITIAL" | "ON" | "OVER" | "WIN";
 };
 
 export function tick(
-  map: Field[][],
+  {map, winLength}: Level,
   { snake, food, status }: GameState,
   direction: MovingDirection
 ): GameState {
@@ -26,10 +26,13 @@ export function tick(
     ];
   }
 
+  const newSnake = [newHead, ...newTail];
+  const newStatus = newSnake.length >= winLength ? 'WIN' : status;
+
   return {
-    snake: [newHead, ...newTail],
+    snake: newSnake,
     food: newFood,
-    status,
+    status: newStatus
   };
 }
 

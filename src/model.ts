@@ -3,7 +3,8 @@ export type Level = {
   name: string;
   number: number;
   initialSnake: Snake;
-  initialFood: Position[]
+  initialFood: Position[], 
+  winLength: number;
 };
 
 export type MovingDirection = 'NORTH' | 'WEST' | 'SOUTH' | 'EAST';
@@ -39,6 +40,7 @@ export function level1(): Level {
     name: "intro",
     number: 1,
     initialSnake, 
-    initialFood: [[45, 45], [45, 50], [50, 45], [50, 50]]
+    initialFood: [[45, 45], [45, 50], [50, 45], [50, 50]], 
+    winLength: 25,
   };
 }

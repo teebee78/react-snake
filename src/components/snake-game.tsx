@@ -4,6 +4,7 @@ import Modal from "./modal";
 import styles from "./snake-game.module.css";
 import { tick } from "../snake-game";
 import Compass from "./compass";
+import Progress from "./progress";
 
 export default function SnakeGame({ level }: { level: Level }) {
   const [{ snake, food, status }, setState] = useState<{
@@ -57,10 +58,10 @@ export default function SnakeGame({ level }: { level: Level }) {
 
         tickCountRef.current++;
 
-        return tick(level.map, currentState, movingDirectionRef.current);
+        return tick(level, currentState, movingDirectionRef.current);
       });
     },
-    [level.map]
+    [level]
   );
 
   useEffect(() => {
@@ -81,6 +82,9 @@ export default function SnakeGame({ level }: { level: Level }) {
     <>
       <Modal open={status === "OVER"} onClose={handleGameOverModalClose}>
         <h1>Game Over</h1>
+      </Modal>
+      <Modal open={status === "WIN"} onClose={handleGameOverModalClose}>
+        <h1>You WIN!!</h1>
       </Modal>
       <h2>
         {level.number} - {level.name}
@@ -115,9 +119,7 @@ export default function SnakeGame({ level }: { level: Level }) {
       </table>
       <div className={styles.footer}>
         {movingDirectionRef.current && (
-          <Compass
-            direction={movingDirectionRef.current}
-          />
+          <Compass direction={movingDirectionRef.current} />
         )}
 
         <div>
@@ -127,6 +129,7 @@ export default function SnakeGame({ level }: { level: Level }) {
         {movingDirectionRef.current && (
           <button onClick={handleTick}>Tick!</button>
         )}
+        <Progress value={snake.length} goal={25} />
       </div>
     </>
   );

@@ -1,0 +1,5 @@
+.progress {
+    max-height: 20px;
+    background-color: aliceblue;
+    border-radius: 5px;
+}
