@@ -7,7 +7,7 @@ export type GameState = {
 };
 
 export function tick(
-  {map, winLength}: Level,
+  { map, winLength, replaceFood }: Level,
   { snake, food, status }: GameState,
   direction: MovingDirection
 ): GameState {
@@ -20,19 +20,19 @@ export function tick(
   let newFood = food;
   if (food.find(([x, y]) => x === newHead[0] && y === newHead[1])) {
     newTail.push(newTail?.length ? newTail[newTail.length - 1] : newHead);
-    newFood = [
-      ...food.filter(([x, y]) => !(x === newHead[0] && y === newHead[1])),
-      findRandomUnoccupiedPosition(map),
-    ];
+    newFood = food.filter(([x, y]) => !(x === newHead[0] && y === newHead[1]));
+    if (replaceFood) {
+      newFood.push(findRandomUnoccupiedPosition(map));
+    }
   }
 
   const newSnake = [newHead, ...newTail];
-  const newStatus = newSnake.length >= winLength ? 'WIN' : status;
+  const newStatus = newSnake.length >= winLength ? "WIN" : status;
 
   return {
     snake: newSnake,
     food: newFood,
-    status: newStatus
+    status: newStatus,
   };
 }
 
@@ -60,15 +60,18 @@ function isValidSnakePosition(map: Field[][], [x, y]: Position): boolean {
 }
 
 function bitesItself(newHead: Position, previousSnake: Position[]): boolean {
-  for (let index = 0; index < previousSnake.length -2; index++) {
-    if (previousSnake[index][0] == newHead[0] && previousSnake[index][1] === newHead[1]) {
+  for (let index = 0; index < previousSnake.length - 2; index++) {
+    if (
+      previousSnake[index][0] == newHead[0] &&
+      previousSnake[index][1] === newHead[1]
+    ) {
       return true;
     }
   }
   return false;
 }
 
-function findRandomUnoccupiedPosition(map: Field[][]): Position {
+export function findRandomUnoccupiedPosition(map: Field[][]): Position {
   let position: Position | undefined = undefined;
   do {
     position = [

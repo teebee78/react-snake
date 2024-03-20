@@ -1,9 +1,10 @@
 import "./App.css";
 import Header from "./components/header";
 import SnakeGame from "./components/snake-game";
-import { level1 } from "./model";
+import { level2 } from "./model";
 
-const level = level1();
+//const level = level1();
+const level = level2();
 
 export function App() {
   return (

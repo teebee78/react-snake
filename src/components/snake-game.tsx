@@ -2,16 +2,16 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Field, Level, MovingDirection, Position, Snake } from "../model";
 import Modal from "./modal";
 import styles from "./snake-game.module.css";
-import { tick } from "../snake-game";
+import { GameState, tick } from "../snake-game";
 import Compass from "./compass";
 import Progress from "./progress";
 
 export default function SnakeGame({ level }: { level: Level }) {
-  const [{ snake, food, status }, setState] = useState<{
-    snake: Snake;
-    food: Position[];
-    status: "INITIAL" | "ON" | "OVER";
-  }>({ snake: level.initialSnake, food: level.initialFood, status: "INITIAL" });
+  const [{ snake, food, status }, setState] = useState<GameState>({
+    snake: level.initialSnake,
+    food: level.initialFood,
+    status: "INITIAL",
+  });
 
   const movingDirectionRef = useRef<MovingDirection | undefined>();
   const tickCountRef = useRef(0);
@@ -129,7 +129,7 @@ export default function SnakeGame({ level }: { level: Level }) {
         {movingDirectionRef.current && (
           <button onClick={handleTick}>Tick!</button>
         )}
-        <Progress value={snake.length} goal={25} />
+        <Progress value={snake.length - level.initialSnake.length} goal={level.winLength - level.initialSnake.length} />
       </div>
     </>
   );
